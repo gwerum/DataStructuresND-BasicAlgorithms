@@ -32,7 +32,7 @@ Once, the input array is sorted, solving the task is pretty straight-forward:
 
 &nbsp;&nbsp;&nbsp;...
 
-&nbsp;&nbsp;&nbsp;N-1: Pick the second smallest element for the last digit of *number one*.
+&nbsp;&nbsp;&nbsp;N-1: Pick the second smallest element for the last digit of *number one*.<br/>
 &nbsp;&nbsp;&nbsp;N: Pick the smallest element for the last digit of *number two*.
 
 ---
@@ -53,7 +53,7 @@ As described above, solving the task consists of two main steps: sorting the inp
 
 ### Test Cases
 
-Three test cases have been implemented to test the method `rearrange_digits(*input_list*)` for the following default and corner use cases:
+Three test cases have been implemented to test the method `rearrange_digits(input_list)` for the following default and corner use cases:
 
 1. **Test 1: Default use cases**: Rearranges elements of integer arrays of even and uneven size to yield maximum cross-sum.
 2. **Test 2: Multi-digit inputs**: Rearranges elements of integer arrays of with multi-digit elements to yield maximum cross-sum.
