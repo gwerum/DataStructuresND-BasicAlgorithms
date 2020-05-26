@@ -30,10 +30,10 @@ Once, the input array is sorted, solving the task is pretty straight-forward:
 2. Pick the second largest element for the first digit of *number two*.
 3. Pick the third largest element for the second digit of *number one*.
 
-...
+&nbsp;&nbsp;&nbsp;...
 
-n-1: Pick the second smallest element for the last digit of *number one*.
-n. Pick the smallest element for the last digit of *number two*.
+&nbsp;&nbsp;&nbsp;N-1: Pick the second smallest element for the last digit of *number one*.
+&nbsp;&nbsp;&nbsp;N: Pick the smallest element for the last digit of *number two*.
 
 ---
 
