@@ -32,10 +32,10 @@ Finding all suffixes is similar to finding a prefix node with the difference tha
 | Finding node for given prefix of size p | O(p) ~ **O(1)** | |
 | Finding all suffixes for given prefix | O(s) ~ **O(1)** | |
 
-**n**: total number of words stored in Trie
-**m**: average number of chars per word stored in Trie
-**o**: average number of shared chars per word stored in Trie
-**p**: averager number of chars in prefix to be searched
+**n**: total number of words stored in Trie\
+**m**: average number of chars per word stored in Trie\
+**o**: average number of shared chars per word stored in Trie\
+**p**: averager number of chars in prefix to be searched\
 **s**: average number of chars in suffixes to be found
 
 
