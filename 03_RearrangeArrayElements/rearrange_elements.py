@@ -9,10 +9,13 @@ def rearrange_digits(input_list):
     Returns:
        (int),(int): Two maximum sums
     """
+    # Check if all elements integers
+    if any([True for el in input_list if type(el)!=int]):
+        raise ValueError("Error: 'input_list' contains non-integer elements")
+    # Sort input_list
     quicksort(input_list)
-
+    # Pick elements from sorted input_list, starting with largest
     first_number, second_number = '', ''
-
     while input_list:
         first_number += str(input_list.pop()) if input_list else ''
         second_number += str(input_list.pop()) if input_list else ''
@@ -53,25 +56,32 @@ def pick_pivot_and_presort(items, begin_index, end_index):
     return pivot_index
 
 
-
 class TestRearrangeElements(unittest.TestCase):
     """docstring for TestRearrangeElements"""
-    def test_one(self):
-        print("\n##### Test case 1: test input_list with uneven number of elements #####")
-        input_list = [1, 2, 3, 4, 5]
-        solution = [542, 31]
-        self.run_test(input_list, solution)
-        pass
+    def test_single_digit_integers(self):
+        print("\n##### Test case 1: single digit integers #####")
+        input_lists = [[3, 1, 5, 4, 2], [4, 6, 2, 5, 9, 8]]
+        solutions = [[542, 31], [964, 852]]
+        for index, input_list in enumerate(input_lists):
+            self.run_test(input_list, solutions[index])
 
-    def test_two(self):
-        print("\n##### Test case 2: test input_list with even number of elements #####")
-        input_list = [4, 6, 2, 5, 9, 8]
-        solution = [964, 852]
+    def test_integers_variable_digit_size(self):
+        print("\n##### Test case 2: integers of different digit sizes #####")
+        input_list = [12, 345, 69, 98, 101, 178]
+        solution = [34510169, 1789812]
         self.run_test(input_list, solution)
-        pass
+
+    def test_invalid_input(self):
+        print("\n##### Test case 3: invalid input #####")
+        input_list = [12, 345, 69, 's', 98, 101, 178]
+        print("\nInput list: {}".format(input_list))
+        print("Expected result: Methods throws 'ValueError'")
+        with self.assertRaises(ValueError):
+            rearrange_digits(input_list)
+        print("Actual result: Methods correctly throws 'ValueError'")
 
     def run_test(self, input_list, solution):
-        print("Input list: {}".format(input_list))
+        print("\nInput list: {}".format(input_list))
         print("Expected result: {}".format(solution))
         result = rearrange_digits(input_list)
         self.assertEqual(self.cross_sum(result), self.cross_sum(solution))
