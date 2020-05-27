@@ -2,18 +2,20 @@
 
 ### Code explanation
 
-The tasks of this exercise is to implement a method, which computes the square root of a number. Only the floor value of the square root needs to be computed. Two boundary conditions were given:
+The task of this exercise is to implement a method, which computes the square root of a number. Only the floor value of the square root needs to be computed. Two boundary conditions were given:
 
 1. For implementation of the method no Python library such as math or similar shall be used.
-2. The method shall have time complexity of no more than `log(n)`.
+2. The method shall have time complexity of no more than `O(log(n))`.
 
-To satisfy the second boundary condition some kind of binary search approach is required. The *square root r* of a *number n* will be somewhere in the range `0 <= s < n`. To find the square root in an efficient manner, this range be recursively searched, splitting the range in half during each recursion.
+To satisfy the second boundary condition some kind of binary search approach is required. The square root **r** of a number **n** will be somewhere in the range `0 <= s < n`. To find the square root in an efficient manner, this range be recursively searched, splitting the range in half during each recursion.
 
 ---
 
 ### Runtime efficiency
 
-As described in the previous section, the solution space for the square root will be searched with a binary search approach, reducing the solution space by half during each recursion. Therefor, considering the initial solution space to be of size n (`0 <= s < n`), a time complexitiy of **O(log(n))** can be estimated.
+As described in the previous section, the solution space for the square root **s** will be searched with a binary search approach, reducing the solution space by half during each recursion. 
+
+Therefore, considering the initial solution space to be input size **n** (`0 <= s < n`), the square root **r** can be found with `O(log(n))`.
 
 ---
 

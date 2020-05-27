@@ -2,7 +2,7 @@
 
 ### Task
 
-The tasks of this exercise is to implement a method, which rearranges the elements of an array such that its elements form two integer numbers who's cross sum is maximum, as shown for the following example:
+The task of this exercise is to implement a method, which rearranges the elements of an array such that its elements form two integer numbers who's cross sum is the maximum of all possible combinations using all elements. The following example illustrates it with an example:
 ```
 input_array = [3, 1, 5, 4, 2]
 solution = [542, 31] or [531, 42]
