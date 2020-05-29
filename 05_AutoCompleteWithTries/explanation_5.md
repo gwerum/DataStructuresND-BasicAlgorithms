@@ -1,4 +1,4 @@
-## Explanation for Trie.ipynb
+## Explanation for auto_complete_trie.py, Trie.ipynb
 
 ### Task
 The task of this exercise is to implement a *Trie data structure*, which stores word lists and will be used for an autocomplete function.
@@ -43,4 +43,14 @@ Finding all suffixes is similar to finding a prefix node with the difference tha
 
 ### Test Cases
 
-For this exercise no additional test cases have been implemented. The functionality can be tested in the Jupyter Notebook.
+The following test cases have been implemented to test `class Trie()`:
+
+1. **Test 1: Autocomplete existing words**: Checks if the correct suffixes for existing words are returned.
+2. **Test 2: Autocomplete existing words (uppercase)**: Checks if the correct suffixes for existing words are returned even when uppercase letters are used.
+3. **Test 3: Autocomplete non-existing words**: Checks if no suffixes for non-existing words are returned.
+
+The test cases can be executed using the following command:
+
+```
+python -m unittest auto_complete_trie.py
+```
