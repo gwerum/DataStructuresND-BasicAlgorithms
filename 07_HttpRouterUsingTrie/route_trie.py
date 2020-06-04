@@ -21,7 +21,7 @@ class RouteTrie:
     # Stores all routes and handlers of the homepage
     def __init__(self, root_directory):
         # Homepage root holds main homepage URL
-        self.root = RouteTrieNode(root_directory)
+        self.root = RouteTrieNode(root_directory, 'root_handler()')
 
     def insert(self, handler, route_list):
         # Insert new handler for homepage path
@@ -62,6 +62,8 @@ class Router:
 
     def lookup(self, homepage_path):
         # Return handler from trie for given homepage path
+        if homepage_path == "/" or homepage_path == self.route.root.path:
+            return self.route.root.handler
         try:
             route_list = self.__split_path(homepage_path)
             # Remove trailing slash, if existing
@@ -72,7 +74,7 @@ class Router:
             return handler
 
         except KeyError:
-            return "No handler found."
+            return "Not found handler"
 
     def __split_path(self, homepage_path):
         # Splits homepage path into route sections
@@ -86,7 +88,7 @@ class Router:
 # Test cases
 
 nd256_classroom = {}
-nd256_classroom['root'] = "https://classroom.udacity.com/nanodegrees/nd256/"
+nd256_classroom['root_handler()'] = "https://classroom.udacity.com/nanodegrees/nd256/"
 
 nd256_classroom['dashboard_handler()'] = "https://classroom.udacity.com/nanodegrees/nd256/dashboard/overview"
 
@@ -116,7 +118,7 @@ class TestTrieRouter(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         super(TestTrieRouter, cls).setUpClass()
-        cls.router = Router(nd256_classroom.pop('root'))
+        cls.router = Router(nd256_classroom.pop('root_handler()'))
         for page in nd256_classroom.keys():
             cls.router.add_handler(page, nd256_classroom[page])
 
@@ -127,23 +129,30 @@ class TestTrieRouter(unittest.TestCase):
         for index, path in enumerate(lookup_paths):
             cls.run_test(path, expected_handler[index])
 
+    def test_lookup_root(cls):
+        print("\n##### Test case 2: lookup of root handler #####")
+        lookup_paths = ["/","https://classroom.udacity.com/nanodegrees/nd256/"]
+        expected_handler = ['root_handler()','root_handler()']
+        for index, path in enumerate(lookup_paths):
+            cls.run_test(path, expected_handler[index])
+
     def test_lookup_trailing_slash(cls):
-        print("\n##### Test case 2: lookup of paths with trailing slash #####")
+        print("\n##### Test case 3: lookup of paths with trailing slash #####")
         lookup_paths = nd256_classroom.values()
         expected_handler = list(nd256_classroom.keys())
         for index, path in enumerate(lookup_paths):
             cls.run_test(path+'/', expected_handler[index])
 
     def test_invalid_lookup(cls):
-        print("\n##### Test case 3: lookup of non-existing handlers #####")
+        print("\n##### Test case 4: lookup of non-existing handlers #####")
         lookup_paths = ["https://www.udemy.com/", "https://classroom.udacity.com/nanodegrees/nd256/final_certificate"]
-        expected_handler = ["No handler found.", "No handler found."]
+        expected_handler = ["Not found handler", "Not found handler"]
         for index, path in enumerate(lookup_paths):
             cls.run_test(path, expected_handler[index])
 
     def run_test(cls, lookup_path, expected_handler):
         print("\nLookup path:")
-        print(lookup_path)
+        print("'"+lookup_path+"'")
         print("Expected handler: {}".format(expected_handler))
         actual_handler = cls.router.lookup(lookup_path)
         print("Returned handler: {}".format(actual_handler))

@@ -22,19 +22,18 @@ Three classes have been implemented:
 
 ### Runtime efficiency
 
-Trie data structures have the advantage of having a very efficient lookup even if large amounts of data are stored in them. This is achieved by splitting up the lookup problem into smaller sub-problems. In this exercise homepage URL's are split up into smaller string sections, which are respectively stored in dictionaries. 
+The methods for adding a new handler and looking up an existing handler have both the same runtime efficiency of order `O(r*c)`, where **r** is the route length (the number of sections the path is split into) and **c** is the average number of childs per Trie node. For looking up or storing a handler the Trie needs to be *walked through* section-by-section (r) and in each step the list of childs (c) needs to be searched.
 
-So, instead of looking up the entire URL in a large dictionary, each section of the URL is looked up in a small dictionary. For small dictionaries the lookup can be performed in constant time O(1), so an URL split up into r sections can be looked up in O(r).
+The advantage of a Trie comes into play during lookup, since the lookup usually doesn't always start from the root. Considering the homepage example, one usually needs the handlers of direct neighbours (sub-pages or the parent page), which then only requires *walking* one step.
 
-|  | Time complexity | Space complexity |
+|  | Time complexity | Space complexity 
 | ------------------- | --------------- | ---------------- |
-| Adding h handler with route size r | O(h*r) ~ **O(h)** | O(h*r) ~ **O(h)** |
-| Lookup handler for given route of size r | O(r) ~ **O(1)** | |
+| Adding a single handler to Trie | **O(r\*c)** | **O(r-s)** |
+| Lookup handler from Trie | **O(r\*c)** | |
 
-**h**: total number of handlers stored in Trie\
-**r**: average size of URL route stored in Trie
-
-For large homepages the number of handlers **h** is much larger then the average route **r**.
+**r**: average number of split sections per path\
+**s**: average number of shared sections per path\
+**c**: average number of children c per Trie node
 
 ---
 

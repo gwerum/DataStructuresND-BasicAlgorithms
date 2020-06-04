@@ -1,24 +1,25 @@
 from random import randint, uniform
 import unittest
 
-def get_min_max(ints):
+def get_min_max(ints=None):
     """
     Return a tuple(min, max) out of list of unsorted integers.
 
     Args:
        ints(list): list of integers containing one or more integers
     """
+    # Check if input valid
+    if not ints or any([True for _ in ints if type(_)!=int]):
+        raise ValueError("Error: No valid 'input_list' provided.")
+        
     for index, integer in enumerate(ints):
-        if type(integer) == int:
-            if index == 0:
-                min_element, max_element = integer, integer
-            else:
-                if integer < min_element:
-                    min_element = integer
-                if integer > max_element:
-                    max_element = integer
+        if index == 0:
+            min_element, max_element = integer, integer
         else:
-            raise ValueError("Error: No integer array provided as argument.")
+            if integer < min_element:
+                min_element = integer
+            if integer > max_element:
+                max_element = integer
 
     return min_element, max_element
 
@@ -37,6 +38,17 @@ class TestMinMax(unittest.TestCase):
     def test_invalid_input(self):
         print("\n##### Test case 3: float list as input #####")
         _input = [uniform(-100.0,100.0) for i in range(20)]
+        print("Input array:")
+        print(_input)
+        print("Expected result: ValueError")
+        with self.assertRaises(ValueError):
+            get_min_max(_input)
+        eval_str = "'get_min_max()' correctly raises ValueError"
+        print("Actual result: {}".format(eval_str))
+
+    def test_empty_list(self):
+        print("\n##### Test case 4: empty list as input #####")
+        _input = []
         print("Input array:")
         print(_input)
         print("Expected result: ValueError")

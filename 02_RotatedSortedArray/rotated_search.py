@@ -1,4 +1,5 @@
 import unittest
+import pdb
 
 def rotated_array_search(input_list, target):
     """
@@ -9,6 +10,10 @@ def rotated_array_search(input_list, target):
     Returns:
        int: Index or -1
     """
+    # Check if input list is empty
+    if not input_list:
+        return -1, -1
+    # Find pivot point
     pivot_index = find_pivot_index_of(input_list)
     # If no pivot found, search sorted array
     if pivot_index == None:
@@ -37,7 +42,7 @@ def find_pivot_index_of(array, start_index=0):
         -1: if array is detected to be unsorted
     """
     # Base case
-    if len(array) == 1: 
+    if len(array) <= 1: 
         return None
     # Check if pivot index close to mid index
     mid_index = (len(array)-1) // 2
@@ -52,10 +57,10 @@ def find_pivot_index_of(array, start_index=0):
     # Search pivot in unsorted section
     if array[0] >= array[mid_index]:
         _unsorted, _sorted = array[:mid_index+1], array[mid_index+1:]
-        return find_pivot_index_of(_unsorted)
     else:
         _unsorted, _sorted = array[mid_index+1:], array[:mid_index+1]
-        return find_pivot_index_of(_unsorted, mid_index + 1)
+        start_index = start_index + mid_index + 1
+    return find_pivot_index_of(_unsorted, start_index)
 
 def array_is_sorted(array, pivot):
     first, second = array[0:pivot+1], array[pivot+1:]
@@ -65,8 +70,8 @@ def binary_search(array, target, start_index=0):
     """
     Implements standard binary search for array
     """
+    # Base cases
     mid_index = (len(array)-1) // 2
-    # Base case
     if array[mid_index] == target:
         return start_index + mid_index
     if len(array) == 1:
@@ -107,8 +112,29 @@ class TestRotatedSearch(unittest.TestCase):
         for target in targets:
             self.run_test(input_list, target)
 
+    def test_4(self):
+        print("\n######### Test case 4: Search empty array ######### ")
+        input_list = []
+        targets = [4]
+        for target in targets:
+            self.run_test(input_list, target)
+
+    def test_5(self):
+        print("\n######### Test case 5: Test with large array ######### ")
+        input_list = [i for i in range (1011,10000)]+[i for i in range (0,1011)]
+        targets = [6, 9998, 1010, 1011]
+        for target in targets:
+            self.run_test(input_list, target)
+
+    def test_6(self):
+        print("\n######### Test case 6: Test with large array with negative numbers ######### ")
+        input_list = [i for i in range (1011,10000)]+[i for i in range (-1000,1011)]
+        targets = [6, 9998, -789, -60, 1010, 1011]
+        for target in targets:
+            self.run_test(input_list, target)
+
     def run_test(self, input_list, target):
-        print("\nInput list: {}".format(input_list))
+        self._print(input_list)
         print("Search value: {}".format(target))
         actual_result, pivot = rotated_array_search(input_list, target)
         expected_result = linear_search(input_list, target)
@@ -120,6 +146,17 @@ class TestRotatedSearch(unittest.TestCase):
             self.assertEqual(actual_result, expected_result)
         print("Expected result: {}".format(expected_result))
         print("Actual result: {}".format(actual_result))
+
+
+    def _print(self, input_list):
+        if len(input_list) > 100:
+            shortened_input_list = str(input_list[:10])[:-1] + " ... " + \
+                                   str(input_list[8985:8995])[1:-1] + " ... " + \
+                                   str(input_list[-5:])[1:]
+            print("\nInput list:")
+            print(shortened_input_list)
+        else:
+            print("\nInput list: {}".format(input_list))
 
 
 
